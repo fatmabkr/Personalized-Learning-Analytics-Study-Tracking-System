@@ -1,0 +1,141 @@
+========================================================
+  FocusUp – Study Tracker App
+  HOW TO RUN INSTRUCTIONS
+========================================================
+
+REQUIREMENTS
+------------
+Before running the application, make sure you have the
+following software installed on your computer:
+
+  1. Java JDK 23
+     Download: https://www.oracle.com/java/technologies/downloads/
+
+  2. IntelliJ IDEA (Community or Ultimate)
+     Download: https://www.jetbrains.com/idea/download/
+
+  3. MySQL Server 8.x
+     Download: https://dev.mysql.com/downloads/mysql/
+
+  4. Maven 3.8+ (bundled with IntelliJ IDEA by default)
+
+
+--------------------------------------------------------
+STEP 1 - SET UP THE DATABASE
+--------------------------------------------------------
+
+  1. Open MySQL Workbench or any MySQL client (e.g., terminal or command prompt).
+
+  2. Connect to your local MySQL server as root:
+       Host     : localhost
+       Port     : 3306
+       Username : root
+       Password : (leave empty, or enter your root password)
+
+  3. Import the system database. You have two options:
+
+     OPTION A (Using the SQL Script - Note: contains only few sample data):
+     Open and run the file:
+       init_database.sql
+
+     OPTION B (Using the Database Dump - Recommended):
+     You can import the provided dump file (database_dump.sql)
+     using MySQL Workbench (Server -> Data Import) or via terminal for Mac/Windows natively in the same folder:
+       Terminal/CMD: mysql -u root -p BIM216_Project < database_dump.sql
+
+     This process will automatically:
+       - Create the database: BIM216_Project
+       - Create all required tables
+         (ADVISOR, STUDENT, SUBJECT, STUDY_SESSIONS,
+          QUIZ_RECORDS, GOALS, INSIGHT_RECORDS)
+       - Insert sample advisor and student accounts
+
+  Sample login credentials loaded by the script/dump:
+
+    ADVISOR:
+      Email    : hakan.hoca@rehberlik.com
+      Password : hkn_pass123
+
+    STUDENT:
+      Email    : cmocquer0@liveinternet.ru
+      Password : hF2^KwzGAaWzW
+
+
+--------------------------------------------------------
+STEP 2 – CONFIGURE DATABASE CONNECTION (IF NEEDED)
+--------------------------------------------------------
+
+  The database connection settings are hardcoded.
+  If your MySQL root password is not empty, you must
+  update the PASSWORD field in these three files:
+
+    - src/main/java/LoginApp.java         (line ~20)
+    - src/main/java/StudentDashboard.java (line ~47)
+    - src/main/java/AdvisorDashboard.java (line ~40)
+
+  Change this line in each file:
+    private static final String PASSWORD = "";
+  To:
+    private static final String PASSWORD = "your_password";
+
+
+--------------------------------------------------------
+STEP 3 – OPEN THE PROJECT IN IntelliJ IDEA
+--------------------------------------------------------
+
+  1. Launch IntelliJ IDEA.
+
+  2. Click "Open" and select the project folder:
+       StudyTrackerApp/
+
+  3. IntelliJ will detect the Maven project automatically.
+     Wait for it to finish indexing and downloading
+     dependencies (this may take a minute on first run).
+
+  4. Confirm that Maven has resolved all dependencies:
+       - mysql-connector-j 8.3.0
+       - javafx-controls 21.0.1
+       - javafx-fxml 21.0.1
+
+
+--------------------------------------------------------
+STEP 4 – RUN THE APPLICATION
+--------------------------------------------------------
+
+  1. In the Project panel, navigate to:
+       src/main/java/main.java
+
+  2. Right-click on main.java and select:
+       "Run 'main.main()'"
+
+  3. The FocusUp login window will open.
+
+  4. Choose your role:
+       - "ÖĞRENCİ GİRİŞİ"  → Student Login
+       - "DANIŞMAN GİRİŞİ" → Advisor Login
+
+  5. Enter your email and password to log in.
+
+
+--------------------------------------------------------
+TROUBLESHOOTING
+--------------------------------------------------------
+
+  Problem : Application does not start / JavaFX error
+  Fix     : Make sure your JDK is set to version 23
+            in IntelliJ (File > Project Structure > SDK).
+
+  Problem : "Communications link failure" on login
+  Fix     : Check that your MySQL server is running
+            and the connection details in the .java
+            files match your local setup.
+
+  Problem : "Access denied for user 'root'"
+  Fix     : Update the PASSWORD field in the three
+            source files as described in Step 2.
+
+  Problem : Tables not found / database missing
+  Fix     : Re-run init_database.sql in MySQL and
+            make sure the script completed without errors.
+
+========================================================
